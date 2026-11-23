@@ -125,6 +125,17 @@ To link against an installed libE57Format shared library instead, set
 PYE57_USE_SYSTEM_LIBE57FORMAT=1 python -m pip install .
 ```
 
+This requires a compatible libE57Format 3.x installed as a shared library
+(3.4.1 or newer is recommended). Its headers and library must be findable by
+the compiler and linker at build time; if they are in a non-standard prefix,
+point to them with `CPPFLAGS="-I<prefix>/include"` and `LDFLAGS="-L<prefix>/lib"`.
+
+The resulting extension is not self-contained: the libE57Format shared library
+must also be on the dynamic loader path at run time, for example via
+`ldconfig` or `LD_LIBRARY_PATH` on Linux, `DYLD_LIBRARY_PATH` on macOS, or
+`os.add_dll_directory()` on Windows. Otherwise `import pye57` fails with an
+`ImportError`.
+
 ### Uninstalling
 
 Use pip again
